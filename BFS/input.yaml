@@ -16,5 +16,4 @@ runOption:
   - run:
       numOfRuns: 1000
       fi_type: bitflip
-
-[defaultTimeOut: 30]
+      timeOut: 30
