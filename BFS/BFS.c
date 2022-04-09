@@ -1,5 +1,7 @@
 // BFS algorithm in C
 
+//source : https://www.programiz.com/dsa/graph-bfs
+
 #include <stdio.h>
 #include <stdlib.h>
 #define SIZE 40
