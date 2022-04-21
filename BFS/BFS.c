@@ -155,17 +155,32 @@ void printQueue(struct queue* q) {
     }
 }
 
-int main() {
-    struct Graph* graph = createGraph(6);
-    addEdge(graph, 0, 1);
-    addEdge(graph, 0, 2);
-    addEdge(graph, 1, 2);
-    addEdge(graph, 1, 4);
-    addEdge(graph, 1, 3);
-    addEdge(graph, 2, 4);
-    addEdge(graph, 3, 4);
+void makeGraph(struct Graph* graph, int nodes){
+    int child1 = 0;
+    int child2 = 0;
 
-    bfs(graph, 0);
+    for(int i = 0; i < nodes; i++){
+        child1 = (2*i) + 1;
+        child2 = (2*i) + 2;
+
+        if(child1 <= nodes){
+            addEdge(graph, i, child1);
+        }
+        if(child2 <= nodes){
+            addEdge(graph, i, child2);
+        }
+
+    }
+}
+
+int main(int argc, char *argv[]) {
+    //Program takes two inputs:
+    // 1. The number of nodes (this will create a binary tree with max number of children
+    // 2. The starting node
+    struct Graph* graph = createGraph(argv[1]);
+    makeGraph(graph, argv[1]);
+
+    bfs(graph, argv[2]);
 
     return 0;
 }

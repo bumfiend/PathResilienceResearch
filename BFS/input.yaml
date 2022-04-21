@@ -8,6 +8,12 @@ compileOption:
           - alloca
           - call
           - phi
+    - funcname:
+        include:
+          - all
+        exclude:
+          - addEdge
+          - makeGraph
 
   regSelMethod: regloc
   regloc: dstreg
