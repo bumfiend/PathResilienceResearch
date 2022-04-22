@@ -177,10 +177,10 @@ int main(int argc, char *argv[]) {
     //Program takes two inputs:
     // 1. The number of nodes (this will create a binary tree with max number of children
     // 2. The starting node
-    struct Graph* graph = createGraph(argv[1]);
-    makeGraph(graph, argv[1]);
+    struct Graph* graph = createGraph(atoi(argv[1]));
+    makeGraph(graph, atoi(argv[1]));
 
-    bfs(graph, argv[2]);
+    bfs(graph, atoi(argv[2]));
 
     return 0;
 }
