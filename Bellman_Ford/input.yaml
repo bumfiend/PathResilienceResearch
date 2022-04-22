@@ -8,12 +8,18 @@ compileOption:
           - alloca
           - call
           - phi
+    - funcname:
+        include:
+          - all
+        exclude:
+          - addEdge
+          - makeGraph
 
   regSelMethod: regloc
   regloc: dstreg
 
 runOption:
   - run:
-      numOfRuns: 1000
+      numOfRuns: 10000
       fi_type: bitflip
       timeOut: 30

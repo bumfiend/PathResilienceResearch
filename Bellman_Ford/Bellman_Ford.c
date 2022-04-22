@@ -22,7 +22,7 @@ struct Graph {
 void bellmanford(struct Graph *g, int source);
 void display(int arr[], int size);
 
-int main(void) {
+int main(int argc, char *argv[]) {
     //create graph
     struct Graph *g = (struct Graph *)malloc(sizeof(struct Graph));
     g->V = 4;  //total vertices

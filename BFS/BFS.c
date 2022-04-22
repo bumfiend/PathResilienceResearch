@@ -15,9 +15,7 @@ struct queue {
 struct queue* createQueue();
 void enqueue(struct queue* q, int);
 int dequeue(struct queue* q);
-void display(struct queue* q);
 int isEmpty(struct queue* q);
-void printQueue(struct queue* q);
 
 struct node {
     int vertex;
@@ -40,7 +38,6 @@ void bfs(struct Graph* graph, int startVertex) {
     enqueue(q, startVertex);
 
     while (!isEmpty(q)) {
-        printQueue(q);
         int currentVertex = dequeue(q);
         printf("Visited %d\n", currentVertex);
 
@@ -141,23 +138,9 @@ int dequeue(struct queue* q) {
     return item;
 }
 
-// Print the queue
-void printQueue(struct queue* q) {
-    int i = q->front;
-
-    if (isEmpty(q)) {
-        printf("Queue is empty");
-    } else {
-        printf("\nQueue contains \n");
-        for (i = q->front; i < q->rear + 1; i++) {
-            printf("%d ", q->items[i]);
-        }
-    }
-}
-
 void makeGraph(struct Graph* graph, int nodes){
-    int child1 = 0;
-    int child2 = 0;
+    int child1;
+    int child2;
 
     for(int i = 0; i < nodes; i++){
         child1 = (2*i) + 1;
