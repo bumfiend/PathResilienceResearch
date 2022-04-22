@@ -89,16 +89,32 @@ void printGraph(struct Graph* graph) {
     }
 }
 
-int main() {
-    struct Graph* graph = createGraph(4);
-    addEdge(graph, 0, 1);
-    addEdge(graph, 0, 2);
-    addEdge(graph, 1, 2);
-    addEdge(graph, 2, 3);
+void makeGraph(struct Graph* graph, int nodes){
+    int child1 = 0;
+    int child2 = 0;
 
-    //printGraph(graph);
+    for(int i = 0; i < nodes; i++){
+        child1 = (2*i) + 1;
+        child2 = (2*i) + 2;
 
-    DFS(graph, 2);
+        if(child1 <= nodes){
+            addEdge(graph, i, child1);
+        }
+        if(child2 <= nodes){
+            addEdge(graph, i, child2);
+        }
+
+    }
+}
+
+int main(int argc, char *argv[]) {
+    //Program takes two inputs:
+    // 1. The number of nodes (this will create a binary tree with max number of children
+    // 2. The starting node
+    struct Graph* graph = createGraph(atoi(argv[1]));
+    makeGraph(graph, atoi(argv[1]));
+
+    DFS(graph, atoi(argv[2]));
 
     return 0;
 }
