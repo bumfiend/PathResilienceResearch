@@ -4,7 +4,7 @@ import filecmp
 
 print("\nBegin\n")
 
-# set directory variables
+# set directory variables.
 curdir = os.path.dirname(os.path.realpath(__file__))
 std_output = curdir + "/llfi/std_output"
 baseline = curdir + "/llfi/baseline"
