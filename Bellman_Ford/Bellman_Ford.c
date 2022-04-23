@@ -24,14 +24,13 @@ void display(int arr[], int size);
 
 void makeGraph(struct Graph* graph, int nodes, int weight){
 
-    //array of edges for graph
-    graph->edge = (struct Edge *)malloc(graph->E * sizeof(struct Edge));
-
     //total nodes
     graph->V = nodes;
     //total edges
     graph->E = nodes - 1;
 
+    //array of edges for graph
+    graph->edge = (struct Edge *)malloc(graph->E * sizeof(struct Edge));
 
     int child1 = 0;
     int child2 = 0;
