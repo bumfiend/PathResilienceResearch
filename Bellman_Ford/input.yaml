@@ -14,12 +14,14 @@ compileOption:
         exclude:
           - addEdge
           - makeGraph
+          - printf
+          - display
 
   regSelMethod: regloc
   regloc: dstreg
 
 runOption:
   - run:
-      numOfRuns: 10000
+      numOfRuns: 1000
       fi_type: bitflip
       timeOut: 30

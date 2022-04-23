@@ -97,10 +97,10 @@ void makeGraph(struct Graph* graph, int nodes){
         child1 = (2*i) + 1;
         child2 = (2*i) + 2;
 
-        if(child1 <= nodes){
+        if(child1 < nodes){
             addEdge(graph, i, child1);
         }
-        if(child2 <= nodes){
+        if(child2 < nodes){
             addEdge(graph, i, child2);
         }
 

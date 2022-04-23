@@ -22,14 +22,47 @@ struct Graph {
 void bellmanford(struct Graph *g, int source);
 void display(int arr[], int size);
 
+void makeGraph(struct Graph* graph, int nodes, int weight){
+
+    //array of edges for graph
+    graph->edge = (struct Edge *)malloc(graph->E * sizeof(struct Edge));
+
+    //total nodes
+    graph->V = nodes;
+    //total edges
+    graph->E = nodes - 1;
+
+
+    int child1 = 0;
+    int child2 = 0;
+    int j = 0;
+
+    for(int i = 0; i < nodes; i++){
+        child1 = (2*i) + 1;
+        child2 = (2*i) + 2;
+
+        if(child1 < nodes){
+            graph->edge[j].u = i;
+            graph->edge[j].v = child1;
+            graph->edge[j].w = i%3 * weight;
+            j++;
+        }
+        if(child2 < nodes){
+            graph->edge[j].u = i;
+            graph->edge[j].v = child1;
+            graph->edge[j].w = 0;
+            j++;
+        }
+
+    }
+}
+
 int main(int argc, char *argv[]) {
     //create graph
     struct Graph *g = (struct Graph *)malloc(sizeof(struct Graph));
-    g->V = 4;  //total vertices
-    g->E = 5;  //total edges
 
-    //array of edges for graph
-    g->edge = (struct Edge *)malloc(g->E * sizeof(struct Edge));
+    makeGraph(g, atoi(argv[1]), atoi(argv[2]));
+
 
     //------- adding the edges of the graph
     /*
@@ -40,32 +73,9 @@ int main(int argc, char *argv[]) {
           w is the weight of the edge (u,v)
       */
 
-    //edge 0 --> 1
-    g->edge[0].u = 0;
-    g->edge[0].v = 1;
-    g->edge[0].w = 5;
 
-    //edge 0 --> 2
-    g->edge[1].u = 0;
-    g->edge[1].v = 2;
-    g->edge[1].w = 4;
 
-    //edge 1 --> 3
-    g->edge[2].u = 1;
-    g->edge[2].v = 3;
-    g->edge[2].w = 3;
-
-    //edge 2 --> 1
-    g->edge[3].u = 2;
-    g->edge[3].v = 1;
-    g->edge[3].w = 6;
-
-    //edge 3 --> 2
-    g->edge[4].u = 3;
-    g->edge[4].v = 2;
-    g->edge[4].w = 2;
-
-    bellmanford(g, 0);  //0 is the source vertex
+    bellmanford(g, atoi(argv[3]));  //0 is the source vertex
 
     return 0;
 }
