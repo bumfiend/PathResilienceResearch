@@ -30,13 +30,14 @@ void makeGraph(struct Graph* graph, int nodes, int weight){
     graph->E = nodes - 1;
 
     //array of edges for graph
-    graph->edge = (struct Edge *)malloc(graph->E * sizeof(struct Edge));
+    graph->edge = (struct Edge *)malloc(nodes - 1);
 
     int child1 = 0;
     int child2 = 0;
     int j = 0;
 
     for(int i = 0; i < nodes; i++){
+        printf("%d, ", i);
         child1 = (2*i) + 1;
         child2 = (2*i) + 2;
 
