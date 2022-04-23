@@ -64,6 +64,8 @@ void makeGraph(int graph[MAX][MAX], int n){
 
 }
 int main(int argc, char *argv[]) {
+
+
     int Graph[MAX][MAX], n, u;
     n = atoi(argv[1]);
     makeGraph(Graph, n);

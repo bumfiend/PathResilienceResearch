@@ -49,7 +49,7 @@ void makeGraph(struct Graph* graph, int nodes, int weight){
         }
         if(child2 < nodes){
             graph->edge[j].u = i;
-            graph->edge[j].v = child1;
+            graph->edge[j].v = child2;
             graph->edge[j].w = 0;
             j++;
         }
@@ -58,6 +58,10 @@ void makeGraph(struct Graph* graph, int nodes, int weight){
 }
 
 int main(int argc, char *argv[]) {
+    //first input is number of nodes
+    //second input is the weight scale
+    //third input is source vertex
+
     //create graph
     struct Graph *g = (struct Graph *)malloc(sizeof(struct Graph));
 
