@@ -22,55 +22,16 @@ struct Graph {
 void bellmanford(struct Graph *g, int source);
 void display(int arr[], int size);
 
-void makeGraph(struct Graph* graph, int nodes, int weight){
+void makeGraph(struct Graph* g, int edges, int weight){
 
-    //array of edges for graph
-    graph->edge = (struct Edge *)malloc(graph->E * sizeof(struct Edge));
+    for(int i = 0; i < edges; i++){
+        g->edge[i].u = i;
+        g->edge[i].v = i + 1;
+        g->edge[i].w = i%3 * weight;
 
-    //total nodes
-    graph->V = nodes;
-    //total edges
-    graph->E = nodes - 1;
-
-
-    int child1 = 0;
-    int child2 = 0;
-    int j = 0;
-
-    for(int i = 0; i < nodes; i++){
-        child1 = (2*i) + 1;
-        child2 = (2*i) + 2;
-
-        if(child1 < nodes){
-            graph->edge[j].u = i;
-            graph->edge[j].v = child1;
-            graph->edge[j].w = (i + child1) % 4;
-            j++;
-        }
-        if(child2 < nodes){
-            graph->edge[j].u = i;
-            graph->edge[j].v = child2;
-            graph->edge[j].w = (i + child2) % 4;
-            j++;
-        }
 
     }
-}
-
-int main(int argc, char *argv[]) {
-    //create graph
-    struct Graph *g = (struct Graph *)malloc(sizeof(struct Graph));
-    makeGraph(g, atoi(argv[1]), atoi(argv[2]));
-
-
-    //------- adding the edges of the graph
-    /*
-          edge(u, v)
-          where 	u = start vertex of the edge (u,v)
-                  v = end vertex of the edge (u,v)
-
-          w is the weight of the edge (u,v)
-
+/*
 
     //edge 0 --> 1
     g->edge[0].u = 0;
@@ -96,9 +57,37 @@ int main(int argc, char *argv[]) {
     g->edge[4].u = 3;
     g->edge[4].v = 2;
     g->edge[4].w = 2;
-           */
+*/
 
-    bellmanford(g, atoi(argv[3]));  //0 is the source vertex
+
+
+}
+
+int main(int argc, char *argv[]) {
+
+
+    //create graph
+    struct Graph *g = (struct Graph *)malloc(sizeof(struct Graph));
+    g->V = atoi(argv[1]) + 1;  //total vertices
+    g->E = atoi(argv[1]);  //total edges
+
+    //array of edges for graph
+    g->edge = (struct Edge *)malloc(g->E * sizeof(struct Edge));
+
+    //------- adding the edges of the graph
+    /*
+          edge(u, v)
+          where 	u = start vertex of the edge (u,v)
+                  v = end vertex of the edge (u,v)
+
+          w is the weight of the edge (u,v)
+      */
+
+    makeGraph(g, atoi(argv[1]), atoi(argv[2]));
+
+
+
+    bellmanford(g, 0);  //0 is the source vertex
 
     return 0;
 }
