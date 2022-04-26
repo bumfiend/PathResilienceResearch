@@ -4,11 +4,12 @@ import filecmp
 
 print("\nBegin\n")
 
-# set directory variables.
+# set directory variables
 curdir = os.path.dirname(os.path.realpath(__file__))
 std_output = curdir + "/llfi/std_output"
 baseline = curdir + "/llfi/baseline"
 errdir = curdir + "/llfi/error_output"
+llfidir = curdir + "/llfi/llfi_stat_output"
 
 # read golden output from ./baseline/golden_std_output
 print ("Reading golden output...")
@@ -26,6 +27,10 @@ sdc_count = 0
 benign_count = 0
 crash_count = 0
 hang_count = 0
+sdc_op = {}
+benign_op = {}
+crash_op = {}
+
 print ("Checking files...")
 for f in range(0, run_count):
     print ("Checking fault injection run " + str(f) + "...", end="\r")
@@ -36,14 +41,42 @@ for f in range(0, run_count):
         file_err.close()
     except FileNotFoundError:   # no error output
         error_msg = ""
+
+    try:
+        file_inst = open(llfidir + "/llfi.stat.fi.injectedfaults.0-" + str(f))
+        inst_msg = file_inst.read()
+        inst_msg.split('opcode=')
+        opcode = inst_msg[1]
+        file_inst.close()
+    except FileNotFoundError:   # no error output
+        error_msg = ""
+
+
     if ("hang" in error_msg):
         hang_count += 1
+        if opcode not in crash_op:
+            crash_op[opcode] = 0
+        crash_op[opcode] += 1
+
     elif ("crash" in error_msg):
         crash_count += 1
+        if opcode not in crash_op:
+            crash_op[opcode] = 0
+        crash_op[opcode] += 1
+
     elif filecmp.cmp(file_out, file_gld_out):
         benign_count += 1
+        if opcode not in benign_op:
+            benign_op[opcode] = 0
+        benign_op[opcode] += 1
+
     else:
         sdc_count += 1
+        if opcode not in sdc_op:
+            sdc_op[opcode] = 0
+        sdc_op[opcode] += 1
+
+
 sys.stdout.write("\033[K")
 print ("Complete.", end="\r")
 
@@ -55,6 +88,13 @@ print ("Benign count  = " + str(benign_count))
 print ("Hang count    = " + str(hang_count))
 print ("Total Fi runs = " + str(run_count))
 
+print ("SDC opcode count =")
+print(sdc_op)
+print ("Crash opcode count =")
+print(crash_op)
+print ("Benign opcode count =")
+print(benign_op)
+
 # print results to file
 par_dir = os.path.split( os.path.abspath(os.path.join(os.path.dirname( __file__ ), os.pardir)))[1]
 out = open(curdir + "/results.txt", 'w')
@@ -64,4 +104,12 @@ print ("Crash count   = " + str(crash_count))
 print ("Benign count  = " + str(benign_count))
 print ("Hang count    = " + str(hang_count))
 print ("Total Fi runs = " + str(run_count))
+
+print ("SDC opcode count =")
+print(sdc_op)
+print ("Crash opcode count =")
+print(crash_op)
+print ("Benign opcode count =")
+print(benign_op)
+
 out.close()
